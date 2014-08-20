@@ -53,9 +53,16 @@
   </PropertyGroup>
   <ItemGroup>
     <TypeScriptCompile Include="index.ts" />
+    <TypeScriptCompile Include="lib\buildcontents.ts" />
+    <TypeScriptCompile Include="lib\compressor.ts" />
+    <TypeScriptCompile Include="lib\generateoutput.ts" />
+    <TypeScriptCompile Include="lib\getfiles.ts" />
+    <TypeScriptCompile Include="lib\globals.ts" />
+    <TypeScriptCompile Include="lib\writer.ts" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="lib\" />
-  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptModuleKind>commonjs</TypeScriptModuleKind>
+  </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
 </Project>
