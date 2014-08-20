@@ -4,12 +4,13 @@ import Writer = require('./writer');
 import globals = require('./globals');
 import path = require('path');
 
-function buildContents(lines: Array<string>) {
+function buildContents(lines: Array<string>, filePath: string) {
     var writers = globals.writers,
         imports = globals.imports,
         lessRegex = globals.lessFileRegex,
         cssRegex = globals.cssFileRegex,
         stringLiteralRegex = globals.stringLiteralRegex,
+        ignores = globals.config.ignore,
         previousLine = '',
         currentLines: Array<string> = [],
         line: string,
@@ -31,13 +32,15 @@ function buildContents(lines: Array<string>) {
                 imported += '.less';
             }
 
-            hashPath = path.resolve(imported);
-            imports[hashPath] = true;
-        } else {
-            currentLines.push(lines[index]);
+            hashPath = path.resolve(filePath, '..', imported);
+            if (ignores.indexOf(hashPath) === -1 && typeof imports[hashPath] === 'undefined') {
+                imports[hashPath] = true;
+            }
+
+            continue;
         }
 
-        previousLine = line;
+        currentLines.push(lines[index]);
     }
 
     // Push all remaining lines to the root module.

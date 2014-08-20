@@ -19,6 +19,24 @@ function writeToFile(path: string, data: Array<string>) {
     }
 }
 
+function filterImports() {
+    var imports = globals.imports,
+        keys = Object.keys(imports),
+        length = keys.length,
+        key: string,
+        files = [];
+
+    for (var i = 0; i < length; ++i) {
+        key = keys[i];
+        if (imports[key]) {
+            files.push(key);
+            imports[key] = false;
+        }
+    }
+
+    return files;
+}
+
 /**
  * Uses the config to go through all of the framework *.less files in the 
  * proper order and compresses them into a single file for packaging.
@@ -32,7 +50,6 @@ function compress(config?: globals.IConfig, callback?: (err) => void) {
 
     var src = path.resolve(globals.config.src),
         writers = globals.writers,
-        imports = globals.imports,
         output = globals.output,
         dest = globals.config.dest,
         version = globals.config.version,
@@ -64,14 +81,17 @@ function compress(config?: globals.IConfig, callback?: (err) => void) {
         }
 
         // Gather all the lines from all the files into an array.
-        files.forEach((file) => {
-            fileData = fs.readFileSync(path.resolve(src, '..', file), 'utf8');
-            var lines = fileData.split(/\r\n|\n/);
-            lines[0] = lines[0].trim();
-            allLines = allLines.concat(lines);
-        });
-        
-        buildContents(allLines);
+        var file: string,
+            splitLines: Array<string>;
+        for (var i = 0; i < files.length; ++i) {
+            file = path.resolve(src, '..', files[i]);
+            fileData = fs.readFileSync(file, 'utf8');
+            splitLines = fileData.split(/\r\n|\n/);
+            splitLines[0] = splitLines[0].trim();
+            buildContents(splitLines, file);
+            files = files.concat(filterImports());
+        }
+
         generateOutput();
 
         // If a license file is specified, we want to prepend it to the output.

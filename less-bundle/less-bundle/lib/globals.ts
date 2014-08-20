@@ -1,6 +1,7 @@
 ﻿/// <reference path="../typings/tsd.d.ts" />
 
 import Writer = require('./writer');
+import path = require('path');
 
 export interface IConfig {
     /**
@@ -15,6 +16,12 @@ export interface IConfig {
      * is built, it will be output to these paths.
      */
     dest: Array<string>;
+
+    /**
+     * An array of file paths to ignore in an import statement. 
+     * None of these files will be included in the output.
+     */
+    ignore?: Array<string>;
 
     /**
      * The version number used in conjunction with the license.
@@ -55,6 +62,14 @@ function validate(config: IConfig): Array<string> {
     return errors;
 }
 
+function resolveIgnores(ignores: Array<string>) {
+    ignores.forEach((ignore, index) => {
+        ignores[index] = path.resolve(ignore);
+    });
+
+    return ignores;
+}
+
 /**
  * Creates the config, and rootModule if necessary.
  * 
@@ -68,6 +83,14 @@ export function initialize(cfg: IConfig) {
 
     if (typeof cfg.dest === 'string') {
         config.dest = [<string><any>cfg.dest];
+    }
+
+    if (isArray(cfg.ignore)) {
+        resolveIgnores(cfg.ignore);
+    } else if (typeof cfg.ignore === 'string') {
+        config.ignore = resolveIgnores([<string><any>cfg.ignore]);
+    } else {
+        config.ignore = [];
     }
 
     var errors = validate(config);
