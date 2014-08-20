@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "less-bundle", "less-bundle\less-bundle.csproj", "{F7C865D0-C848-4EA6-B865-5980BFE1836B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D5CF1D47-7FC7-4D6E-9252-89F13A6D270D}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitattributes = ..\.gitattributes
+		..\.gitignore = ..\.gitignore
+		..\LICENSE = ..\LICENSE
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F7C865D0-C848-4EA6-B865-5980BFE1836B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7C865D0-C848-4EA6-B865-5980BFE1836B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7C865D0-C848-4EA6-B865-5980BFE1836B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7C865D0-C848-4EA6-B865-5980BFE1836B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
