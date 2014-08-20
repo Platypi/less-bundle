@@ -9,9 +9,9 @@
     constructor(lines: Array<string>);
 
     /**
-     * Creates a new Writer with the given module.
+     * Creates a new Writer.
      * 
-     * @param mod The module to set for this writer.
+     * @param operator The array of lines to associate with this writer.
      */
     constructor(operator) {
         if (Array.isArray(operator)) {
@@ -21,13 +21,10 @@
     }
 
     /**
-     * Writes the lines for this writer into the output array, then calls the callback with the 
-     * module associated with this writer.
+     * Writes the lines for this writer into the output array.
      * 
      * @param output The output lines to which the Writer's lines should be appended.
      * @param previousLine The previous line that was added to output.
-     * @param callback A method that takes in the next module with which to continue 
-     * output generation.
      */
     write(output: Array<string>, previousLine: string) {
         // If this writer has a module associated with it, we want to first add the 

@@ -5,9 +5,9 @@ import path = require('path');
 
 export interface IConfig {
     /**
-     * The index.html file used to find all the *.ts files and 
-     * build them in order. Starts at the <!-- ts-bundle-start -->
-     * comment and ends at <!-- ts-bundle-end -->
+     * The index.html file used to find all the *.less files and 
+     * build them in order. Starts at the <!-- less-bundle-start -->
+     * comment and ends at <!-- less-bundle-end -->
      */
     src: string;
 
@@ -30,7 +30,7 @@ export interface IConfig {
 
     /**
      * The path to the license file to be added to the build as a
-     * comment. If a version is specified, the v.0.0.0.0 in the 
+     * comment. If a version is specified, the v.0.0.0 in the 
      * license will be replaced with the version.
      */
     license?: string;
@@ -71,7 +71,7 @@ function resolveIgnores(ignores: Array<string>) {
 }
 
 /**
- * Creates the config, and rootModule if necessary.
+ * Creates the config.
  * 
  * @param cfg The root config.
  */
@@ -104,7 +104,6 @@ export function initialize(cfg: IConfig) {
 }
 
 export var config: IConfig,
-    windowName = 'window',
     writers: Array<Writer> = [],
     output: Array<string> = [],
 

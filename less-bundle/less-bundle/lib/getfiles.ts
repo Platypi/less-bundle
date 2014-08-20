@@ -3,8 +3,8 @@
 /**
  * Iterates through the index.html file data, finding all the 
  * script tags between the start and end comment nodes. Takes 
- * the src value of each script tag and changes the extension 
- * from .js to .ts. Returns an array of all the .ts files in 
+ * the href value of each script tag and changes the extension 
+ * from .min.css|.css to .less. Returns an array of all the .less files in 
  * the same order they appear in the index.html.
  * 
  * @param data The string output from reading the index.html 
@@ -23,22 +23,22 @@ function getFiles(data: string) {
     lines.some((line) => {
         line = line.trim();
 
-        // If we hit the start tag, we need to start checking for script tags.
+        // If we hit the start tag, we need to start checking for link tags.
         if (!running && globals.startRegex.test(line)) {
             running = true;
             return false;
 
-        // If we hit the end tag, we need to stop checking for script tags. 
+        // If we hit the end tag, we need to stop checking for link tags. 
         } else if (running && globals.endRegex.test(line)) {
             return true;
-        // We want to ignore script tags if we haven't hit a start tag yet.
+        // We want to ignore link tags if we haven't hit a start tag yet.
         } else if (!running) {
             return false;
         }
 
         var exec = globals.hrefRegex.exec(line);
 
-        // Ignore the tag if it is not a script tag with a *.css src value.
+        // Ignore the tag if it is not a link tag with a *.css href value.
         if (!exec || exec[1].indexOf('.css') === -1) {
             return false;
         }

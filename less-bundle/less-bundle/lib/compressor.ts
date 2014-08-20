@@ -92,6 +92,7 @@ function compress(config?: globals.IConfig, callback?: (err) => void) {
             files = files.concat(filterImports());
         }
 
+        // generate the output
         generateOutput();
 
         // If a license file is specified, we want to prepend it to the output.

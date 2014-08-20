@@ -43,7 +43,7 @@ function buildContents(lines: Array<string>, filePath: string) {
         currentLines.push(lines[index]);
     }
 
-    // Push all remaining lines to the root module.
+    // Push all remaining lines
     writers.push(new Writer(currentLines));
     return index;
 }
