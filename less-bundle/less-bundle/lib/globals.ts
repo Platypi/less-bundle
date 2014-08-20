@@ -89,12 +89,12 @@ export var config: IConfig,
     imports: IObject<boolean> = {},
 
     // Finds all the <script src="" /> tags
-    srcRegex = /src=("[^"]*)/,
+    hrefRegex = /href=("[^"]*)/,
 
-    // Finds the plat-start comment Node
+    // Finds the start comment Node
     startRegex = /<!--\s*less-bundle-start/,
 
-    // Finds the plat-end comment Node
+    // Finds the end comment Node
     endRegex = /<!--\s*less-bundle-end/,
 
     // Finds the string literal in a string

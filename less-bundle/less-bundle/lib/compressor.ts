@@ -20,7 +20,7 @@ function writeToFile(path: string, data: Array<string>) {
 }
 
 /**
- * Uses the config to go through all of the framework *.ts files in the 
+ * Uses the config to go through all of the framework *.less files in the 
  * proper order and compresses them into a single file for packaging.
  * 
  * @param config The configuration for compressing the files.
@@ -32,11 +32,12 @@ function compress(config?: globals.IConfig, callback?: (err) => void) {
 
     var src = path.resolve(globals.config.src),
         writers = globals.writers,
+        imports = globals.imports,
         output = globals.output,
         dest = globals.config.dest,
         version = globals.config.version,
         license = globals.config.license;
-
+    
     // Goes through each file in the dest files and makes sure they have a 
     // .less extension.
     dest.forEach((outFile, index) => {
@@ -44,8 +45,8 @@ function compress(config?: globals.IConfig, callback?: (err) => void) {
         dest[index] = outFile.substring(0, (end > -1) ? end : undefined) + '.less';
     });
 
-    // Reads the src file, creates a Module tree, builds the contents for each 
-    // module in the proper order, and generates the output file.
+    // Reads the src file, builds the contents for each 
+    // file in the proper order, and generates the output file.
     fs.readFile(src, 'utf8', (err, data) => {
         if (err) {
             return callback(err);
@@ -69,7 +70,7 @@ function compress(config?: globals.IConfig, callback?: (err) => void) {
             lines[0] = lines[0].trim();
             allLines = allLines.concat(lines);
         });
-
+        
         buildContents(allLines);
         generateOutput();
 
@@ -78,7 +79,7 @@ function compress(config?: globals.IConfig, callback?: (err) => void) {
             var licenseFile = path.resolve(license),
                 licenseData = fs.readFileSync(licenseFile, 'utf8'),
                 lines = licenseData.split(/\r\n|\n/),
-                regex = /(.*)v\d+\.\d+\.\d+\.\d+(.*)/;
+                regex = /(.*)v\d+\.\d+\.\d+(.*)/;
 
             // If a version is specified, we want to go through and find where 
             // the version is specified in the license, then replace it with the 

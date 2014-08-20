@@ -36,14 +36,14 @@ function getFiles(data: string) {
             return false;
         }
 
-        var exec = globals.srcRegex.exec(line);
+        var exec = globals.hrefRegex.exec(line);
 
-        // Ignore the tag if it is not a script tag with a *.js src value.
-        if (!exec || exec[1].indexOf('.js') === -1) {
+        // Ignore the tag if it is not a script tag with a *.css src value.
+        if (!exec || exec[1].indexOf('.css') === -1) {
             return false;
         }
 
-        files.push(exec[1].replace('.js', '.ts').substr(1));
+        files.push(exec[1].replace(/(?:.min.css|.css)$/, '.less').substr(1));
 
         return false;
     });
