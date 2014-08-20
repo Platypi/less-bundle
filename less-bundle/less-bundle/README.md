@@ -33,12 +33,6 @@ interface IConfig {
     dest: Array<string>;
 
     /**
-     * An array of file paths to ignore in an import statement. 
-     * None of these files will be included in the output.
-     */
-    ignore?: Array<string>;
-
-    /**
      * The version number used in conjunction with the license.
      */
     version?: string;

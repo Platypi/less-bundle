@@ -19,24 +19,6 @@ function writeToFile(path: string, data: Array<string>) {
     }
 }
 
-function filterImports() {
-    var imports = globals.imports,
-        keys = Object.keys(imports),
-        length = keys.length,
-        key: string,
-        files = [];
-
-    for (var i = 0; i < length; ++i) {
-        key = keys[i];
-        if (imports[key]) {
-            files.push(key);
-            imports[key] = false;
-        }
-    }
-
-    return files;
-}
-
 /**
  * Uses the config to go through all of the framework *.less files in the 
  * proper order and compresses them into a single file for packaging.
@@ -89,7 +71,6 @@ function compress(config?: globals.IConfig, callback?: (err) => void) {
             splitLines = fileData.split(/\r\n|\n/);
             splitLines[0] = splitLines[0].trim();
             buildContents(splitLines, file);
-            files = files.concat(filterImports());
         }
 
         // generate the output

@@ -1,8 +1,9 @@
 ﻿/// <reference path="../typings/tsd.d.ts" />
 
+import fs = require('fs');
+import path = require('path');
 import Writer = require('./writer');
 import globals = require('./globals');
-import path = require('path');
 
 function buildContents(lines: Array<string>, filePath: string) {
     var writers = globals.writers,
@@ -10,12 +11,16 @@ function buildContents(lines: Array<string>, filePath: string) {
         lessRegex = globals.lessFileRegex,
         cssRegex = globals.cssFileRegex,
         stringLiteralRegex = globals.stringLiteralRegex,
-        ignores = globals.config.ignore,
-        previousLine = '',
         currentLines: Array<string> = [],
         line: string,
         hashPath: string,
-        imported: string;
+        imported: string,
+        file: string,
+        splitLines: Array<string>;
+
+    if (typeof imports[filePath] === 'undefined') {
+        imports[filePath] = true;
+    }
 
     for (var index = 0; index < lines.length; ++index) {
         line = lines[index].trim();
@@ -33,8 +38,12 @@ function buildContents(lines: Array<string>, filePath: string) {
             }
 
             hashPath = path.resolve(filePath, '..', imported);
-            if (ignores.indexOf(hashPath) === -1 && typeof imports[hashPath] === 'undefined') {
+            if (typeof imports[hashPath] === 'undefined') {
                 imports[hashPath] = true;
+                file = fs.readFileSync(hashPath, 'utf8');
+                splitLines = file.split(/\r\n|\n/);
+                splitLines[0] = splitLines[0].trim();
+                buildContents(splitLines, hashPath);
             }
 
             continue;
