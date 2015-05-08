@@ -5,9 +5,8 @@ import path = require('path');
 
 export interface IConfig {
     /**
-     * The index.html file used to find all the *.less files and 
-     * build them in order. Starts at the <!-- less-bundle-start -->
-     * comment and ends at <!-- less-bundle-end -->
+     * The path to a LESS file that imports all the desired files 
+     * in the order you wish them to be bundled in.
      */
     src: string;
 
@@ -45,12 +44,12 @@ function isArray(obj: any): boolean {
 function validate(config: IConfig): Array<string> {
     var errors: Array<string> = [];
 
-    if (!isString(config.src) || config.src.indexOf('.html') < 0) {
-        errors.push('Error: src config property must be a string locating the html file for the bundle');
+    if (!(isString(config.src) && lessFileRegex.test(config.src))) {
+        errors.push('Error: src config property must be a string path locating the LESS file for the bundle');
     }
 
     if (!isArray(config.dest)) {
-        errors.push('Error: dest config property must be a string or array of strings designating the output file(s).');
+        errors.push('Error: dest config property must be a string or array of strings designating the output LESS file(s).');
     }
 
     return errors;
@@ -92,10 +91,10 @@ export var config: IConfig,
     hrefRegex = /href=("[^"]*)/,
 
     // Finds the start comment Node
-    startRegex = /<!--\s*less-bundle-start/,
+    // startRegex = /<!--\s*less-bundle-start/,
 
     // Finds the end comment Node
-    endRegex = /<!--\s*less-bundle-end/,
+    // endRegex = /<!--\s*less-bundle-end/,
 
     // Finds the string literal in a string
     stringLiteralRegex = /.*(?:'|")(.*)(?:'|").*/,
