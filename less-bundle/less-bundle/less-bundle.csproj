@@ -10,7 +10,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>1.4</TypeScriptToolsVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -56,7 +56,6 @@
     <TypeScriptCompile Include="lib\buildcontents.ts" />
     <TypeScriptCompile Include="lib\compressor.ts" />
     <TypeScriptCompile Include="lib\generateoutput.ts" />
-    <TypeScriptCompile Include="lib\getfiles.ts" />
     <TypeScriptCompile Include="lib\globals.ts" />
     <TypeScriptCompile Include="lib\writer.ts" />
   </ItemGroup>

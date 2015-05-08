@@ -8,10 +8,10 @@ Bundle all of your LESS files into a single file. Useful for large projects with
 var bundle = require('less-bundle');
 
 bundle({
-    src: 'index.html',
-    dest: 'out.ts'
+    src: 'main.less',
+    dest: 'out.less'
 }, function (err) {
-  
+  // log err
 });
 ```
 
@@ -20,9 +20,8 @@ bundle({
 ```typescript
 interface IConfig {
     /**
-     * The index.html file used to find all the *.less files and 
-     * build them in order. Starts at the <!-- less-bundle-start -->
-     * comment and ends at <!-- less-bundle-end -->
+     * The path to a LESS file that imports all the desired files 
+     * in the order you wish them to be bundled in.
      */
     src: string;
 

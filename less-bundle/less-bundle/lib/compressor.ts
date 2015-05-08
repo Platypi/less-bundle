@@ -3,7 +3,6 @@
 import fs = require('fs');
 import path = require('path');
 import globals = require('./globals');
-import getFiles = require('./getfiles');
 import buildContents = require('./buildcontents');
 import generateOutput = require('./generateoutput');
 
@@ -50,28 +49,10 @@ function compress(config?: globals.IConfig, callback?: (err) => void) {
         if (err) {
             return callback(err);
         }
-        var files = getFiles(data),
-            fileData = '',
-            allLines: Array<string> = [];
 
-        if (files.length === 0) {
-            return callback(
-                new Error(
-                    'No files found to bundle, do you have <!-- less-bundle-start --> and <!-- less-bundle-end --> in your src file?'
-                )
-            );
-        }
-
-        // Gather all the lines from all the files into an array.
-        var file: string,
-            splitLines: Array<string>;
-        for (var i = 0; i < files.length; ++i) {
-            file = path.resolve(src, '..', files[i]);
-            fileData = fs.readFileSync(file, 'utf8');
-            splitLines = fileData.split(/\r\n|\n/);
-            splitLines[0] = splitLines[0].trim();
-            buildContents(splitLines, file);
-        }
+        var splitLines = data.split(/\r\n|\n/);
+        splitLines[0] = splitLines[0].trim();
+        buildContents(splitLines, src);
 
         // generate the output
         generateOutput();

@@ -1,6 +1,6 @@
 {
   "name": "less-bundle",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "A package bundler for Less",
   "author": {
     "name": "Platypi",
