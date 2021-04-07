@@ -176,3 +176,5 @@ FakesAssemblies/
 *.js
 *.map
 typings/
+
+dist
